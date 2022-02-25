@@ -1,0 +1,69 @@
+# SPDX-License-Identifier: CC0-1.0
+# SPDX-FileCopyrightText: NONE
+
+targets = [
+    { triple = "x86_64-unknown-linux-gnu" },
+    { triple = "x86_64-unknown-uefi" },
+]
+
+# cargo deny check advisories
+# https://embarkstudios.github.io/cargo-deny/checks/advisories/cfg.html
+[advisories]
+db-path = "~/.cargo/advisory-db"
+db-urls = ["https://github.com/rustsec/advisory-db"]
+vulnerability = "deny"
+unmaintained = "warn"
+yanked = "deny"
+notice = "warn"
+ignore = [
+    #"RUSTSEC-0000-0000",
+]
+#severity-threshold =
+
+# cargo deny check licenses
+# https://embarkstudios.github.io/cargo-deny/checks/licenses/cfg.html
+[licenses]
+default = "deny"
+unlicensed = "deny"
+copyleft = "deny"
+# https://spdx.org/licenses/
+allow = [
+    "CC0-1.0",
+    "Apache-2.0",
+    "MPL-2.0",
+]
+unused-allowed-license = "allow"
+deny = []
+allow-osi-fsf-free = "neither"
+confidence-threshold = 0.9
+exceptions = [
+    { allow = ["GPL-3.0"], name = "uefi-shell" },
+]
+
+[licenses.private]
+ignore = false
+registries = []
+
+# cargo deny check bans
+# https://embarkstudios.github.io/cargo-deny/checks/bans/cfg.html
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+highlight = "all"
+allow = []
+deny = []
+skip = []
+skip-tree = []
+
+# cargo deny check sources
+# https://embarkstudios.github.io/cargo-deny/checks/sources/cfg.html
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []
+
+[sources.allow-org]
+github = []
+gitlab = []
+bitbucket = []
