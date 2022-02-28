@@ -11,7 +11,7 @@
 extern crate alloc;
 
 mod data_types;
-mod protocol;
+mod proto;
 mod status;
 
 use uefi::prelude::*;
@@ -21,8 +21,8 @@ use uefi::CStr16;
 fn main(_handle: Handle, mut st: SystemTable<Boot>) -> Status {
     uefi_services::init(&mut st).unwrap_success();
 
-    let _ = st.stdout().clear().unwrap_success();
     let _ = st.boot_services().set_watchdog_timer(0, 0x1_0000, None).unwrap_success();
+    let _ = st.stdout().clear().unwrap_success();
     let _ = st.stdout().enable_cursor(true).unwrap_success();
 
     let mut buf = [0; 32];

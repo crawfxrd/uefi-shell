@@ -3,12 +3,16 @@
 
 use core::ffi::c_void;
 
-use uefi::data_types::{Event, Handle};
 use uefi::proto::device_path::DevicePath;
 use uefi::proto::Protocol;
-use uefi::{unsafe_guid, Guid, Status};
+use uefi::unsafe_guid;
+use uefi::Event;
+use uefi::Guid;
+use uefi::Status;
 
-use crate::data_types::{ShellDeviceNameFlags, ShellFileHandle, ShellFileInfo};
+use crate::data_types::ShellDeviceNameFlags;
+use crate::data_types::ShellFileHandle;
+use crate::data_types::ShellFileInfo;
 
 /// Shell services for UEFI applications.
 #[repr(C)]
@@ -229,26 +233,4 @@ pub struct ShellProtocol {
         name: *const u16,
         attrs: *mut u32
     ) -> *const u16,
-}
-
-/// Shell application's arguments.
-#[repr(C)]
-#[unsafe_guid("752F3136-4E16-4FDC-A22A-E5F46812F4CA")]
-#[derive(Protocol)]
-pub struct ShellParametersProtocol {
-    argv: *const *const u16,
-    argc: usize,
-    stdin: ShellFileHandle,
-    stdout: ShellFileHandle,
-    stderr: ShellFileHandle,
-}
-
-/// Advertise an external shell command.
-#[repr(C)]
-#[unsafe_guid("3C7200E9-005F-4EA4-87DE-A3DFAC8A27C3")]
-#[derive(Protocol)]
-pub struct ShellDynamicCommandProtocol {
-    command_name: *const u16,
-    handler: *const c_void,
-    get_help: *const c_void,
 }
