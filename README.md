@@ -16,10 +16,12 @@ Install build dependencies and tools with the provided script:
 Cargo is used to build the binary.
 
 ```sh
-cargo build --release --target x86_64-unknown-uefi
+cargo build --release --target x86_64-unknown-uefi \
+    -Z build-std=core,alloc \
+    -Z build-std-features=compiler-builtins-mem
 ```
 
-Make targets are available to generate a disk image file and run it in QEMU.
+A Make target is available to run the binary in QEMU.
 
 ```sh
 make qemu
