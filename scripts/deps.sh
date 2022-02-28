@@ -19,6 +19,7 @@ if [[ "${ID}" =~ "arch" ]] || [[ "${ID_LIKE}" =~ "arch" ]]; then
     sudo pacman -S \
         --noconfirm \
         curl \
+        edk2-ovmf \
         make \
         mtools \
         qemu
@@ -30,11 +31,13 @@ elif [[ "${ID}" =~ "debian" ]] || [[ "${ID_LIKE}" =~ "debian" ]]; then
         curl \
         make \
         mtools \
+        ovmf \
         qemu-system-x86
 elif [[ "${ID}" =~ "fedora" ]] || [[ "${ID_LIKE}" =~ "fedora" ]]; then
     sudo dnf install \
         --assumeyes \
         curl \
+        edk2-ovmf \
         make \
         mtools \
         qemu-system-x86
