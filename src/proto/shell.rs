@@ -8,10 +8,10 @@ use uefi::proto::Protocol;
 use uefi::unsafe_guid;
 use uefi::Event;
 use uefi::Guid;
+use uefi::Handle;
 use uefi::Status;
 
 use crate::data_types::ShellDeviceNameFlags;
-use crate::data_types::ShellFileHandle;
 use crate::data_types::ShellFileInfo;
 
 /// Shell services for UEFI applications.
@@ -116,44 +116,44 @@ pub struct ShellProtocol {
 
     /// Get the file information from an open file handle.
     get_file_info: extern "efiapi" fn(
-        handle: ShellFileHandle
+        handle: Handle
     ) -> *mut ShellFileInfo,
     /// Set the file information to an open file handle.
     set_file_info: extern "efiapi" fn(
-        handle: ShellFileHandle,
+        handle: Handle,
         info: *const ShellFileInfo
     ) -> Status,
     /// Open a file or directory by file name.
     open_file_by_name: extern "efiapi" fn(
         name: *const u16,
-        handle: *mut ShellFileHandle,
+        handle: *mut Handle,
         mode: u64
     ) -> Status,
     /// Close the file handle.
     close_file: extern "efiapi" fn(
-        handle: ShellFileHandle
+        handle: Handle
     ) -> Status,
     /// Create a file or directory by name.
     create_file: extern "efiapi" fn(
         name: *const u16,
         attrs: u64,
-        handle: *mut ShellFileHandle,
+        handle: *mut Handle,
     ) -> Status,
     /// Read data from a file.
     read_file: extern "efiapi" fn(
-        handle: ShellFileHandle,
+        handle: Handle,
         size: *mut usize,
         buffer: *mut c_void
     ) -> Status,
     /// Write data to a file.
     write_file: extern "efiapi" fn(
-        handle: ShellFileHandle,
+        handle: Handle,
         size: *mut usize,
         buffer: *mut c_void
     ) -> Status,
     /// Delete the file specified by the file handle.
     delete_file: extern "efiapi" fn(
-        handle: ShellFileHandle
+        handle: Handle
     ) -> Status,
     /// Delete the file specified by the file name.
     delete_file_by_name: extern "efiapi" fn(
@@ -161,17 +161,17 @@ pub struct ShellProtocol {
     ) -> Status,
     /// Get a file's current position.
     get_file_position: extern "efiapi" fn(
-        handle: ShellFileHandle,
+        handle: Handle,
         position: *mut u64
     ) -> Status,
     /// Set a file's current position.
     set_file_position: extern "efiapi" fn(
-        handle: ShellFileHandle,
+        handle: Handle,
         position: u64
     ) -> Status,
     /// Flush data back to a device.
     flush_file: extern "efiapi" fn(
-        handle: ShellFileHandle
+        handle: Handle
     ) -> Status,
     /// Find files that match a specified pattern.
     find_files: extern "efiapi" fn(
@@ -180,24 +180,24 @@ pub struct ShellProtocol {
     ) -> Status,
     /// Find all files in a specified directory.
     find_files_in_dir: extern "efiapi" fn(
-        dir:  ShellFileHandle,
+        dir:  Handle,
         list: *mut *mut ShellFileInfo
     ) -> Status,
     /// Get the size of a file.
     get_file_size: extern "efiapi" fn(
-        handle: ShellFileHandle,
+        handle: Handle,
         size: *mut u64
     ) -> Status,
 
     /// Open the root directory of a device.
     open_root: extern "efiapi" fn(
         device: *mut DevicePath,
-        handle: *mut ShellFileHandle
+        handle: *mut Handle
     ) -> Status,
     /// Open the root directory of a device on a handle.
     open_root_by_handle: extern "efiapi" fn(
         device: Handle,
-        handle: *mut ShellFileHandle
+        handle: *mut Handle
     ) -> Status,
 
     /// Event signaled by the UEFI Shell when the user presses Ctrl-C to

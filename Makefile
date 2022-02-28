@@ -28,6 +28,7 @@ build/EFI/boot/bootx64.efi: target/$(TARGET)/release/uefi-shell.efi
 
 .PHONY: target/$(TARGET)/release/uefi-shell.efi
 target/$(TARGET)/release/uefi-shell.efi:
+	RUSTFLAGS="--remap-path-prefix $$HOME=~" \
 	cargo build \
 		--release \
 		--target $(TARGET) \

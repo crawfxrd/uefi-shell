@@ -3,8 +3,7 @@
 
 use uefi::proto::Protocol;
 use uefi::unsafe_guid;
-
-use crate::data_types::ShellFileHandle;
+use uefi::Handle;
 
 /// Shell application's arguments.
 #[repr(C)]
@@ -13,7 +12,7 @@ use crate::data_types::ShellFileHandle;
 pub struct ShellParametersProtocol {
     pub argv: *const *const u16,
     pub argc: usize,
-    pub stdin: ShellFileHandle,
-    pub stdout: ShellFileHandle,
-    pub stderr: ShellFileHandle,
+    pub stdin: Handle,
+    pub stdout: Handle,
+    pub stderr: Handle,
 }

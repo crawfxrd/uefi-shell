@@ -4,8 +4,7 @@
 use core::ffi::c_void;
 
 use uefi::proto::media::file::FileInfo;
-
-pub type ShellFileHandle = *mut c_void;
+use uefi::Handle;
 
 #[repr(transparent)]
 pub struct ShellDeviceNameFlags(u32);
@@ -30,6 +29,6 @@ pub struct ShellFileInfo {
     status: uefi::Status,
     full_name: *const u16,
     file_name: *const u16,
-    handle: ShellFileHandle,
+    handle: Handle,
     info: FileInfo,
 }
